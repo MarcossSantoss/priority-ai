@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>PriorityAI</title>
+</head>
+
+<body>
+
+    <h1>PriorityAI</h1>
+
+    <select id="ticketSelect" onchange="handleSelectChange()">
+        <option value="">Select a ticket</option>
+        <option value="new">+ New Ticket</option>
+    </select>
+
+    <input id="title" placeholder="Title" style="display:none;">
+    <br>
+
+    <textarea id="description" placeholder="Description" style="display:none;"></textarea>
+    <br><br>
+
+    <button onclick="createTicket()">Analyze</button>
+
+    <p id="result"></p>
+
+    <h2>Tickets</h2>
+    <div id="list"></div>
+
+    <script src="/static/js/script.js"></script>
+
+</body>
+
+</html>

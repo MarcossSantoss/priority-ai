@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m pylint app/ main.py --output-format=text)",
+      "Bash(grep -E \"\\\\.\\(py|txt|json|yml|yaml\\)$|^\\\\.\\\\/[^/]+$\")",
+      "Bash(pylint app/ main.py)",
+      "Bash(pylint app/ main.py --disable=all --enable=C,E,F,W)"
+    ]
+  }
+}
