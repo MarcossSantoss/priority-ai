@@ -1,6 +1,6 @@
 # PriorityAI
 
-A web application that uses AI to automatically classify support tickets by priority level — **P1**, **P2**, or **P3** — based on their description.
+A web application that uses AI to automatically classify support tickets by priority level - **P1**, **P2**, or **P3** - based on their description.
 
 ---
 
