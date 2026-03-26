@@ -1,0 +1,244 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background-color: #0f0f14;
+  color: #e2e2e9;
+  min-height: 100vh;
+  padding: 40px 16px 80px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: #2563eb;
+}
+
+.header p {
+  margin-top: 6px;
+  font-size: 0.875rem;
+  color: #6b6b7b;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  background-color: #18181b;
+  border: 1px solid #27272a;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+.card-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6b6b7b;
+  margin-bottom: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b6b7b;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.select-wrapper select {
+  width: 100%;
+  background-color: #0d0d10;
+  border: 1px solid #2563eb44;
+  border-radius: 8px;
+  color: #e2e2e9;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 11px 40px 11px 14px;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.select-wrapper select:hover {
+  background-color: #111116;
+  border-color: #2563eb99;
+}
+
+.select-wrapper select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.select-wrapper select option {
+  background-color: #18181b;
+  color: #e2e2e9;
+}
+
+.select-wrapper::after {
+  content: '';
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #2563eb;
+  border-bottom: 2px solid #2563eb;
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+input,
+textarea {
+  width: 100%;
+  background-color: #09090b;
+  border: 1px solid #27272a;
+  border-radius: 8px;
+  color: #e2e2e9;
+  font-family: inherit;
+  font-size: 0.875rem;
+  padding: 10px 12px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.5;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #52525b;
+}
+
+button {
+  width: 100%;
+  padding: 11px 20px;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+
+button:hover {
+  background-color: #1d4ed8;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.4);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button:disabled {
+  background-color: #1e3a5f;
+  color: #6b8ab0;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+#result {
+  margin-top: 14px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #60a5fa;
+  min-height: 20px;
+}
+
+#list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#list:empty::after {
+  content: 'No tickets yet.';
+  display: block;
+  text-align: center;
+  color: #3f3f46;
+  font-size: 0.875rem;
+  padding: 12px 0;
+}
+
+#list>div {
+  background-color: #09090b;
+  border: 1px solid #27272a;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 0.875rem;
+  color: #d4d4d8;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: border-color 0.2s;
+}
+
+#list>div:hover {
+  border-color: #3f3f46;
+}
+
+#list > div[data-priority="P1"] {
+  color: #f87171;
+  border-left: 3px solid #ef4444;
+}
+
+#list > div[data-priority="P2"] {
+  color: #fbbf24;
+  border-left: 3px solid #f59e0b;
+}
+
+#list > div[data-priority="P3"] {
+  color: #4ade80;
+  border-left: 3px solid #22c55e;
+}
