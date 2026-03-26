@@ -19,51 +19,66 @@ function handleSelectChange() {
 async function createTicket() {
     const select = document.getElementById("ticketSelect").value;
 
-    let title, description;
-
-    if (select === "new") {
-        title = document.getElementById("title").value;
-        description = document.getElementById("description").value;
-    } else if (select !== "") {
-        const selectedTicket = JSON.parse(select);
-        title = selectedTicket.title;
-        description = selectedTicket.description;
-    } else {
-        return;
-    }
-
     const btn = document.querySelector("button");
     const result = document.getElementById("result");
 
-    btn.disabled = true;
-    btn.textContent = "Analyzing...";
-    result.textContent = "";
+    if (select === "new") {
+        const title = document.getElementById("title").value;
+        const description = document.getElementById("description").value;
 
-    const response = await fetch("/ticket", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            title: title,
-            description: description
-        })
-    });
+        if (!title || !description) return;
 
-    const data = await response.json();
+        btn.disabled = true;
+        btn.textContent = "Analyzing...";
+        result.textContent = "";
 
-    document.getElementById("title").value = "";
-    document.getElementById("description").value = "";
-    result.textContent = "Priority: " + data.priority;
+        const response = await fetch("/ticket", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ title, description })
+        });
 
-    btn.disabled = false;
-    btn.textContent = "Analyze with AI";
+        const data = await response.json();
 
-    await loadTickets();
+        document.getElementById("title").value = "";
+        document.getElementById("description").value = "";
+        result.textContent = "Priority: " + data.priority;
 
-    const ticketSelect = document.getElementById("ticketSelect");
-    ticketSelect.value = "new";
-    handleSelectChange();
+        btn.disabled = false;
+        btn.textContent = "Analyze with AI";
+
+        await loadTickets();
+
+        const ticketSelect = document.getElementById("ticketSelect");
+        ticketSelect.value = "new";
+        handleSelectChange();
+
+    } else if (select !== "") {
+        const selectedTicket = JSON.parse(select);
+
+        btn.disabled = true;
+        btn.textContent = "Saving...";
+        result.textContent = "";
+
+        await fetch("/ticket/duplicate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(selectedTicket)
+        });
+
+        result.textContent = "Priority: " + selectedTicket.priority;
+
+        btn.disabled = false;
+        btn.textContent = "Analyze with AI";
+
+        await loadTickets();
+
+        const ticketSelect = document.getElementById("ticketSelect");
+        ticketSelect.value = "new";
+        handleSelectChange();
+    }
 }
 
 async function loadTickets() {

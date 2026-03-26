@@ -6,7 +6,7 @@ A web application that uses AI to automatically classify support tickets by prio
 
 ## Overview
 
-PriorityAI receives a ticket title and description, sends it to a local AI model (Ollama + LLaMA 3), and returns a priority classification. All tickets are persisted in a local SQLite database and displayed in the interface in real time.
+PriorityAI receives a ticket title and description, sends it to a local AI model (Ollama + Mistral), and returns a priority classification. All tickets are persisted in a local SQLite database and displayed in the interface in real time.
 
 ---
 
@@ -14,9 +14,9 @@ PriorityAI receives a ticket title and description, sends it to a local AI model
 
 | Level | Criteria |
 |-------|----------|
-| 🔴 **P1** | System down, critical business impact, many users affected |
-| 🟡 **P2** | Partial issues, degraded performance, some users affected |
-| 🟢 **P3** | Routine requests, password resets, non-urgent tasks |
+| 🔴 **P1** | System down; critical business impact; many users affected; security incidents (malware, ransomware, data breach, unauthorized access, virus, spyware); infrastructure failures |
+| 🟡 **P2** | Partial issues; degraded performance; some users affected; potential security risks |
+| 🟢 **P3** | Routine requests; password resets; user creation or updates; non-urgent tasks |
 
 ---
 
@@ -40,7 +40,7 @@ The request flow follows these steps:
 |-------|------------|
 | Frontend | HTML, CSS, JavaScript (vanilla) |
 | Backend | Python + Flask |
-| AI | Ollama (LLaMA 3) |
+| AI | Ollama (Mistral) |
 | Database | SQLite |
 
 ---
@@ -73,7 +73,7 @@ priority-ai/
 
 - Python 3.10+
 - [Ollama](https://ollama.com) installed and running locally
-- LLaMA 3 model pulled via Ollama
+- Mistral model pulled via Ollama
 
 ---
 
@@ -108,7 +108,7 @@ pip install -r requirements.txt
 
 ```bash
 ollama serve
-ollama pull llama3
+ollama pull mistral
 ```
 
 > Ollama must be running on `http://localhost:11434` before starting the app.
@@ -128,7 +128,8 @@ Open your browser at **http://localhost:5000**
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `GET` | `/` | Serves the frontend |
-| `POST` | `/ticket` | Creates and classifies a ticket |
+| `POST` | `/ticket` | Creates and classifies a new ticket via AI |
+| `POST` | `/ticket/duplicate` | Saves an existing ticket without re-running AI |
 | `GET` | `/tickets` | Returns all saved tickets |
 
 **POST /ticket — request body**
@@ -144,6 +145,16 @@ Open your browser at **http://localhost:5000**
 
 ```json
 {
+  "priority": "P1"
+}
+```
+
+**POST /ticket/duplicate — request body**
+
+```json
+{
+  "title": "Login page is down",
+  "description": "Users cannot access the system since 8am. Complete outage.",
   "priority": "P1"
 }
 ```

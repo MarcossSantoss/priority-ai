@@ -24,6 +24,15 @@ def create_ticket():
     return jsonify({"priority": priority})
 
 
+@ticket_bp.route("/ticket/duplicate", methods=["POST"])
+def duplicate_ticket():
+    data = request.get_json()
+
+    save_ticket(data.get("title"), data.get("description"), data.get("priority"))
+
+    return jsonify({"priority": data.get("priority")})
+
+
 @ticket_bp.route("/tickets", methods=["GET"])
 def list_tickets():
     tickets = get_tickets()

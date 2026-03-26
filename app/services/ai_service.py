@@ -3,10 +3,10 @@ import requests
 
 def get_priority(description):
     prompt = f"""
-    You are an AI that classifies support tickets.
+    You are an AI that classifies support tickets by priority.
     Rules:
-    - P1: system down; critical business impact; many users affected;
-    - P2: partial system issues; degraded performance; some users affected;
+    - P1: system down; critical business impact; many users affected; security incidents (malware, ransomware, data breach, unauthorized access, hacking, virus, spyware); infrastructure failures;
+    - P2: partial system issues; degraded performance; some users affected; potential security risks;
     - P3: routine requests; password resets; user creation or updates; non-urgent tasks;
 
     Respond ONLY with: P1, P2, or P3
@@ -19,7 +19,7 @@ def get_priority(description):
         response = requests.post(
             "http://localhost:11434/api/generate",
             json={
-                "model": "llama3",
+                "model": "mistral",
                 "prompt": prompt,
                 "stream": False
             }, timeout=60
