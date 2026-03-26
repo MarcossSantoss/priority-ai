@@ -1,4 +1,10 @@
 __pycache__/
 *.pyc
 .env
-database.db
+*.db
+venv/
+.venv/
+instance/
+*.egg-info/
+dist/
+docs/

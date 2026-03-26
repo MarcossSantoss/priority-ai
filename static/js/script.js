@@ -1,3 +1,7 @@
+window.onload = function () {
+    loadTickets();
+};
+
 function handleSelectChange() {
     const select = document.getElementById("ticketSelect").value;
     const title = document.getElementById("title");
@@ -28,6 +32,13 @@ async function createTicket() {
         return;
     }
 
+    const btn = document.querySelector("button");
+    const result = document.getElementById("result");
+
+    btn.disabled = true;
+    btn.textContent = "Analyzing...";
+    result.textContent = "";
+
     const response = await fetch("/ticket", {
         method: "POST",
         headers: {
@@ -41,9 +52,18 @@ async function createTicket() {
 
     const data = await response.json();
 
-    document.getElementById("result").innerText = "Priority: " + data.priority;
+    document.getElementById("title").value = "";
+    document.getElementById("description").value = "";
+    result.textContent = "Priority: " + data.priority;
 
-    loadTickets();
+    btn.disabled = false;
+    btn.textContent = "Analyze with AI";
+
+    await loadTickets();
+
+    const ticketSelect = document.getElementById("ticketSelect");
+    ticketSelect.value = "new";
+    handleSelectChange();
 }
 
 async function loadTickets() {
@@ -63,6 +83,7 @@ async function loadTickets() {
     data.forEach(ticket => {
         const item = document.createElement("div");
         item.innerText = `${ticket.title} - ${ticket.priority}`;
+        item.dataset.priority = ticket.priority;
         list.appendChild(item);
 
         const option = document.createElement("option");
@@ -71,13 +92,9 @@ async function loadTickets() {
         select.appendChild(option);
     });
 
-    // Se não houver tickets, abre automaticamente o formulário de novo ticket
     if (data.length === 0) {
         select.value = "new";
         handleSelectChange();
     }
 }
 
-window.onload = function () {
-    loadTickets();
-};

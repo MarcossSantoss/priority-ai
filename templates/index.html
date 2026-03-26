@@ -3,32 +3,51 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PriorityAI</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/script.js"></script>
 </head>
 
 <body>
 
-    <h1>PriorityAI</h1>
+    <header class="header">
+        <h1>PriorityAI</h1>
+        <p>AI-powered ticket prioritization</p>
+    </header>
 
-    <select id="ticketSelect" onchange="handleSelectChange()">
-        <option value="">Select a ticket</option>
-        <option value="new">+ New Ticket</option>
-    </select>
+    <main class="container">
 
-    <input id="title" placeholder="Title" style="display:none;">
-    <br>
+        <section class="card">
+            <p class="card-title">Analyze Ticket</p>
+            <div class="form-group">
 
-    <textarea id="description" placeholder="Description" style="display:none;"></textarea>
-    <br><br>
+                <div class="select-wrapper">
+                    <label for="ticketSelect">Ticket</label>
+                    <select id="ticketSelect" onchange="handleSelectChange()">
+                        <option value="">Select a ticket</option>
+                        <option value="new">+ New Ticket</option>
+                    </select>
+                </div>
 
-    <button onclick="createTicket()">Analyze</button>
+                <input id="title" placeholder="Title" style="display:none;">
 
-    <p id="result"></p>
+                <textarea id="description" placeholder="Description" style="display:none;"></textarea>
 
-    <h2>Tickets</h2>
-    <div id="list"></div>
+                <button onclick="createTicket()">Analyze with AI</button>
 
-    <script src="/static/js/script.js"></script>
+                <p id="result"></p>
+
+            </div>
+        </section>
+
+        <section class="card">
+            <p class="card-title">Tickets</p>
+            <div id="list"></div>
+        </section>
+
+    </main>
 
 </body>
 

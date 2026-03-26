@@ -1,4 +1,3 @@
-"""Entry point for the Priority AI Flask application."""
 from flask import Flask
 from app.routes.ticket_routes import ticket_bp
 from app.database.db import create_table

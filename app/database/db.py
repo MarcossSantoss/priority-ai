@@ -1,14 +1,11 @@
-"""Database connection and operations for the priority-ai application."""
 import sqlite3
 
 
 def get_connection():
-    """Return a connection to the SQLite database."""
     return sqlite3.connect("database.db")
 
 
 def create_table():
-    """Create the tickets table if it does not already exist."""
     conn = get_connection()
     cursor = conn.cursor()
 
@@ -26,7 +23,6 @@ def create_table():
 
 
 def save_ticket(title, description, priority):
-    """Insert a new ticket into the database."""
     conn = get_connection()
     cursor = conn.cursor()
 
@@ -40,7 +36,6 @@ def save_ticket(title, description, priority):
 
 
 def get_tickets():
-    """Retrieve all tickets from the database."""
     conn = get_connection()
     cursor = conn.cursor()
 
