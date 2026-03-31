@@ -42,12 +42,19 @@ async function createTicket() {
 
         const data = await response.json();
 
+        btn.disabled = false;
+        btn.textContent = "Analyze with AI";
+
+        if (!response.ok) {
+            result.textContent = "⚠ " + data.error;
+            result.style.color = "#c0392b";
+            return;
+        }
+
+        result.style.color = "";
         document.getElementById("title").value = "";
         document.getElementById("description").value = "";
         result.textContent = "Priority: " + data.priority;
-
-        btn.disabled = false;
-        btn.textContent = "Analyze with AI";
 
         await loadTickets();
 

@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, jsonify
 from app.services.ai_service import get_priority
+from app.services.validation_service import validate_ticket
 from app.database.db import save_ticket, get_tickets
 
 ticket_bp = Blueprint("ticket", __name__)
@@ -14,8 +15,12 @@ def home():
 def create_ticket():
     data = request.get_json()
 
-    title = data.get("title")
-    description = data.get("description")
+    title = data.get("title", "")
+    description = data.get("description", "")
+
+    validation = validate_ticket(title, description)
+    if not validation["valid"]:
+        return jsonify({"error": validation["error"], "priority": "P3"}), 422
 
     priority = get_priority(description)
 
@@ -27,7 +32,7 @@ def create_ticket():
 @ticket_bp.route("/ticket/duplicate", methods=["POST"])
 def duplicate_ticket():
     data = request.get_json()
-
+    
     save_ticket(data.get("title"), data.get("description"), data.get("priority"))
 
     return jsonify({"priority": data.get("priority")})
